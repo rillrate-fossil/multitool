@@ -8,3 +8,4 @@ license = "MIT"
 readme = "README.md"
 
 [dependencies]
+rillrate = { git = "https://github.com/rillrate/rillrate" }
