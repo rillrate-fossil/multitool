@@ -1,0 +1,10 @@
+[package]
+name = "heroic-toys"
+version = "0.0.1"
+edition = "2018"
+description = "The remake of useful CLI tools, but with Web UI"
+repository = "https://github.com/rillrate/heroic-toys"
+license = "MIT"
+readme = "README.md"
+
+[dependencies]
