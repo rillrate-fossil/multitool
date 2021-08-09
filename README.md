@@ -2,4 +2,8 @@
 
 The remake of useful CLI tools, but with Web UI.
 
-_The project shows features of the RillRate - Dynamic UI for bots, microservices, and IoT._
+The project uses [RillRate][rillrate] - Dynamic UI for bots, microservices, and IoT.
+
+<img src="https://cdn.rillrate.com/github/heroic-toys/dashboard.png" width="400px">
+
+[rillrate]: https://rillrate.com/
