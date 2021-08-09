@@ -21,5 +21,5 @@ TODO:
 
 Become a [sponsor][sponsor] to see how we develop it.
 
-[rillrate]: https://rillrate.com/
+[rillrate]: https://github.com/rillrate/rillrate
 [sponsor]: https://github.com/sponsors/rillrate
