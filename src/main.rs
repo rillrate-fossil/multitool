@@ -1,5 +1,5 @@
 use anyhow::Error;
-use rillrate::PulseFrameTracer;
+use rillrate::pulse::{PulseFrameSpec, PulseFrameTracer, Range};
 use std::thread;
 use std::time::Duration;
 use sysinfo::{ProcessorExt, System, SystemExt};
@@ -12,11 +12,29 @@ const GRP_CPUS: &str = "CPUs";
 fn main() -> Result<(), Error> {
     env_logger::try_init()?;
     let _handle = rillrate::start();
-    let cpu_total = PulseFrameTracer::new([PKG, DSHB_SYSTEM, GRP_LOAD, "CPU [total]"].into(), None);
-    let memory_total =
-        PulseFrameTracer::new([PKG, DSHB_SYSTEM, GRP_LOAD, "Memory [total]"].into(), None);
-    let swap_total =
-        PulseFrameTracer::new([PKG, DSHB_SYSTEM, GRP_LOAD, "Swap [total]"].into(), None);
+
+    let cpu_spec = Some(PulseFrameSpec {
+        retain: 30,
+        range: Range::new(0.0, 100.0),
+    });
+
+    let memory_spec = Some(PulseFrameSpec {
+        retain: 30,
+        range: Range::min(0.0),
+    });
+
+    let cpu_total = PulseFrameTracer::new(
+        [PKG, DSHB_SYSTEM, GRP_LOAD, "CPU [total]"].into(),
+        cpu_spec.clone(),
+    );
+    let memory_total = PulseFrameTracer::new(
+        [PKG, DSHB_SYSTEM, GRP_LOAD, "Memory [total]"].into(),
+        memory_spec.clone(),
+    );
+    let swap_total = PulseFrameTracer::new(
+        [PKG, DSHB_SYSTEM, GRP_LOAD, "Swap [total]"].into(),
+        memory_spec.clone(),
+    );
     //let cpu_map = HashMap::new();
     let mut system = System::new_all();
     loop {
