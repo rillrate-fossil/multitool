@@ -11,7 +11,10 @@ const GRP_CPUS: &str = "CPUs";
 
 fn main() -> Result<(), Error> {
     env_logger::try_init()?;
+
     let _handle = rillrate::start();
+
+    let mut system = System::new_all();
 
     let cpu_spec = Some(PulseFrameSpec {
         retain: 30,
@@ -20,7 +23,12 @@ fn main() -> Result<(), Error> {
 
     let memory_spec = Some(PulseFrameSpec {
         retain: 30,
-        range: Range::min(0.0),
+        range: Range::new(0.0, system.total_memory() as f32),
+    });
+
+    let swap_spec = Some(PulseFrameSpec {
+        retain: 30,
+        range: Range::new(0.0, system.total_swap() as f32),
     });
 
     let cpu_total = PulseFrameTracer::new(
@@ -29,14 +37,14 @@ fn main() -> Result<(), Error> {
     );
     let memory_total = PulseFrameTracer::new(
         [PKG, DSHB_SYSTEM, GRP_LOAD, "Memory [total]"].into(),
-        memory_spec.clone(),
+        memory_spec,
     );
     let swap_total = PulseFrameTracer::new(
         [PKG, DSHB_SYSTEM, GRP_LOAD, "Swap [total]"].into(),
-        memory_spec.clone(),
+        swap_spec.clone(),
     );
+
     //let cpu_map = HashMap::new();
-    let mut system = System::new_all();
     loop {
         system.refresh_all();
         cpu_total.add(system.global_processor_info().cpu_usage());
