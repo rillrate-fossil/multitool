@@ -1,5 +1,5 @@
 use anyhow::Error;
-use rillrate::pulse::{PulseFrameSpec, PulseFrameTracer, Range};
+use rillrate::pulse::{Label, PulseFrameSpec, PulseFrameTracer, Range};
 use std::collections::HashMap;
 use std::thread;
 use std::time::Duration;
@@ -23,16 +23,20 @@ fn main() -> Result<(), Error> {
     let cpu_spec = Some(PulseFrameSpec {
         retain: 30,
         range: Range::new(0.0, 100.0),
+        label: Label::pct_100(),
     });
 
     let memory_spec = Some(PulseFrameSpec {
         retain: 30,
         range: Range::new(0.0, system.total_memory() as f32),
+        // TODO: Check is that correct? Or 1024x?
+        label: Label::new("Gb", 1_000_000.0),
     });
 
     let swap_spec = Some(PulseFrameSpec {
         retain: 30,
         range: Range::new(0.0, system.total_swap() as f32),
+        label: Label::new("Gb", 1_000_000.0),
     });
 
     let cpu_total = PulseFrameTracer::new(
