@@ -92,6 +92,7 @@ fn main() -> Result<(), Error> {
             tracer.add(proc.cpu_usage());
         }
 
+        info_board.set("Uptime", format!("{} secs", system.uptime()));
         thread::sleep(Duration::from_millis(700));
     }
 }
