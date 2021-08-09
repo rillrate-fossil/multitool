@@ -675,9 +675,9 @@ checksum = "7ffc5c5338469d4d3ea17d269fa8ea3512ad247247c30bd2df69e68309ed0a08"
 
 [[package]]
 name = "meio"
-version = "0.93.1"
+version = "0.93.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5e0af23943528239b6e014a3aac94ad1dbb2121d21b061f8e447d8660e4d5594"
+checksum = "c9c1beb1fe892adbb265f21a30048b7d405591f0b022bd309e3d7794380ec147"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -692,9 +692,9 @@ dependencies = [
 
 [[package]]
 name = "meio-connect"
-version = "0.93.1"
+version = "0.93.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "53d280036152e411a0f52fc651ac111708133263948fec79c31bfb1c77805bcf"
+checksum = "ab88ef107ea22e04a44705136b0010e1b3c2fb96762ed9cd5b76e182838fd049"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -716,9 +716,9 @@ dependencies = [
 
 [[package]]
 name = "meio-protocol"
-version = "0.93.1"
+version = "0.93.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c13d405577bc5c7516c29143ad37e8e4675818e304ab419e7f2573766ebe37ac"
+checksum = "3852f857db23c355bbacc0f97a589ec305fcbf7273b8efa171b6ed5b9b686156"
 dependencies = [
  "anyhow",
  "serde",
@@ -1082,8 +1082,9 @@ dependencies = [
 
 [[package]]
 name = "rate-core"
-version = "0.35.0"
-source = "git+https://github.com/rillrate/rillrate#1a73c293fdb689f68f7ac74e2f82ee1bdcfc69a7"
+version = "0.36.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f30649679258a6aff2c6921330ab718a49809e60a0c79107f260ee9438b3f58a"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1204,8 +1205,9 @@ dependencies = [
 
 [[package]]
 name = "rill-engine"
-version = "0.35.0"
-source = "git+https://github.com/rillrate/rillrate#1a73c293fdb689f68f7ac74e2f82ee1bdcfc69a7"
+version = "0.36.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "587cb844d9fa62c5d17d2f4b2bb94c8f5ae6180f6cf579ccfa0a2e4688852b27"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1226,8 +1228,9 @@ dependencies = [
 
 [[package]]
 name = "rill-protocol"
-version = "0.35.0"
-source = "git+https://github.com/rillrate/rillrate#1a73c293fdb689f68f7ac74e2f82ee1bdcfc69a7"
+version = "0.36.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9fd183a7dc7ff8518c964d7829d5bb91c1b462dfa3e9fa1bf79031c3f100dc74"
 dependencies = [
  "anyhow",
  "derive_more",
@@ -1244,8 +1247,9 @@ dependencies = [
 
 [[package]]
 name = "rillrate"
-version = "0.35.0"
-source = "git+https://github.com/rillrate/rillrate#1a73c293fdb689f68f7ac74e2f82ee1bdcfc69a7"
+version = "0.36.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "df2c7179eb46b6bd2f44987cd7388506fc80572ab683fec64b7c8c2652447c6b"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1265,8 +1269,9 @@ dependencies = [
 
 [[package]]
 name = "rillrate-protocol"
-version = "0.35.0"
-source = "git+https://github.com/rillrate/rillrate#1a73c293fdb689f68f7ac74e2f82ee1bdcfc69a7"
+version = "0.36.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "a5de13221f669bc7d5f38d3916375266c92983f1488672dd7896283b1a24d22a"
 dependencies = [
  "derive_more",
  "log",
@@ -1716,9 +1721,9 @@ dependencies = [
 
 [[package]]
 name = "typed-slab"
-version = "0.1.3"
+version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "d29b16e8f55e7f45ca2249300c3b56624c0f7b9fc8bf8bd5b3fb7cdd0359bbdc"
+checksum = "07fd0cf48d6a8d3e0d88ddc085418f156b9ba54ce12ccd6c798ec676b95c7b17"
 dependencies = [
  "slab",
 ]
