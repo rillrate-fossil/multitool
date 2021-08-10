@@ -6,26 +6,26 @@ use std::thread;
 use std::time::Duration;
 use sysinfo::{ProcessorExt, System, SystemExt};
 
-const PKG: &str = "Heroic Toys";
+const APP: &str = "System";
 
-const DSHB_SYSTEM: &str = "System Monitor";
-const DSHB_CPU: &str = "CPU Monitor";
+const D_SYS: &str = "System Monitor";
+const D_CPU: &str = "CPU Monitor";
 
-const GRP_LOAD: &str = "System Load";
-const GRP_INFO: &str = "System Info";
-const GRP_CPUS: &str = "CPUs";
+const G_LOAD: &str = "System Load";
+const G_INFO: &str = "System Info";
+const G_CPUS: &str = "CPUs";
 
 pub fn run() -> Result<(), Error> {
     let mut system = System::new_all();
 
-    let cpu_board = BoardListTracer::new([PKG, DSHB_SYSTEM, GRP_INFO, "CPU Info"].into());
+    let cpu_board = BoardListTracer::new([APP, D_SYS, G_INFO, "CPU Info"].into());
     let proc = system.global_processor_info();
     cpu_board.set("Frequency", format!("{} MHz", proc.frequency()));
     cpu_board.set("Name", proc.name());
     cpu_board.set("Vendor ID", proc.vendor_id());
     cpu_board.set("Brand", proc.brand());
 
-    let info_board = BoardListTracer::new([PKG, DSHB_SYSTEM, GRP_INFO, "System Info"].into());
+    let info_board = BoardListTracer::new([APP, D_SYS, G_INFO, "System Info"].into());
     info_board.set("Name", system.name().unwrap_or_default());
     info_board.set(
         "Kernel Version",
@@ -59,16 +59,12 @@ pub fn run() -> Result<(), Error> {
         label: Label::new("Gb", 1_000_000.0),
     });
 
-    let cpu_total = PulseFrameTracer::new(
-        [PKG, DSHB_SYSTEM, GRP_LOAD, "CPU [total]"].into(),
-        cpu_spec.clone(),
-    );
-    let memory_total = PulseFrameTracer::new(
-        [PKG, DSHB_SYSTEM, GRP_LOAD, "Memory [total]"].into(),
-        memory_spec,
-    );
+    let cpu_total =
+        PulseFrameTracer::new([APP, D_SYS, G_LOAD, "CPU [total]"].into(), cpu_spec.clone());
+    let memory_total =
+        PulseFrameTracer::new([APP, D_SYS, G_LOAD, "Memory [total]"].into(), memory_spec);
     let swap_total = PulseFrameTracer::new(
-        [PKG, DSHB_SYSTEM, GRP_LOAD, "Swap [total]"].into(),
+        [APP, D_SYS, G_LOAD, "Swap [total]"].into(),
         swap_spec.clone(),
     );
 
@@ -83,7 +79,7 @@ pub fn run() -> Result<(), Error> {
             let cpu_id = id + 1;
             let tracer = cpu_tracers.entry(cpu_id).or_insert_with(|| {
                 let name = format!("CPU-{:02}", cpu_id);
-                PulseFrameTracer::new([PKG, DSHB_CPU, GRP_CPUS, &name].into(), cpu_spec.clone())
+                PulseFrameTracer::new([APP, D_CPU, G_CPUS, &name].into(), cpu_spec.clone())
             });
             tracer.add(proc.cpu_usage());
         }
