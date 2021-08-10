@@ -1,9 +1,9 @@
 [package]
-name = "heroic-toys"
+name = "multitool"
 version = "0.0.1"
 edition = "2018"
-description = "The remake of useful CLI tools, but with Web UI"
-repository = "https://github.com/rillrate/heroic-toys"
+description = "System Tools with real-time Web UI"
+repository = "https://github.com/rillrate/multitool"
 license = "MIT"
 readme = "README.md"
 
@@ -12,5 +12,4 @@ anyhow = "1.0.42"
 env_logger = "0.9.0"
 log = "0.4.14"
 rillrate = "0.36.0"
-#rillrate = { git = "https://github.com/rillrate/rillrate" }
 sysinfo = "0.20.0"

@@ -499,17 +499,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "heroic-toys"
-version = "0.0.1"
-dependencies = [
- "anyhow",
- "env_logger",
- "log",
- "rillrate",
- "sysinfo",
-]
-
-[[package]]
 name = "http"
 version = "0.2.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -791,6 +780,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b9f1c5b025cda876f66ef43a113f91ebc9f4ccef34843000e0adf6ebbab84e21"
 dependencies = [
  "winapi",
+]
+
+[[package]]
+name = "multitool"
+version = "0.0.1"
+dependencies = [
+ "anyhow",
+ "env_logger",
+ "log",
+ "rillrate",
+ "sysinfo",
 ]
 
 [[package]]
