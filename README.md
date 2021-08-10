@@ -1,6 +1,6 @@
-# HeroicToys
+# MultiTool
 
-The remake of useful CLI tools, but with Web UI.
+System Tools with real-time Web UI.
 
 The project uses [**RillRate**][rillrate] - Dynamic UI for bots, microservices, and IoT.
 
