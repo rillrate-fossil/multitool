@@ -1,6 +1,5 @@
-mod docker;
+mod apps;
 mod opts;
-mod system;
 
 use anyhow::Error;
 use clap::Clap;
@@ -11,7 +10,7 @@ fn main() -> Result<(), Error> {
     env_logger::try_init()?;
     let _handle = rillrate::start();
     match opts.subcmd {
-        SubCommand::System => system::run(),
-        SubCommand::Docker => docker::run(),
+        SubCommand::System => apps::system::run(),
+        SubCommand::Docker => apps::docker::run(),
     }
 }
