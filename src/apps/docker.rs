@@ -1,7 +1,6 @@
 use anyhow::Error;
 use rillrate::board::BoardListTracer;
-use std::thread;
-use std::time::Duration;
+use tokio::time::{sleep, Duration};
 
 const APP: &str = "Docker";
 
@@ -10,9 +9,9 @@ const D_STAT: &str = "Docker Stats";
 
 const G_INFO: &str = "Generic Info";
 
-pub fn run() -> Result<(), Error> {
+pub async fn run() -> Result<(), Error> {
     let docker_board = BoardListTracer::new([APP, D_INFO, G_INFO, "Parameters"].into());
     loop {
-        thread::sleep(Duration::from_millis(700));
+        sleep(Duration::from_millis(1_000)).await;
     }
 }

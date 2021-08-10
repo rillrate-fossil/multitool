@@ -2,9 +2,8 @@ use anyhow::Error;
 use rillrate::board::BoardListTracer;
 use rillrate::pulse::{Label, PulseFrameSpec, PulseFrameTracer, Range};
 use std::collections::HashMap;
-use std::thread;
-use std::time::Duration;
 use sysinfo::{ProcessorExt, System, SystemExt};
+use tokio::time::{sleep, Duration};
 
 const APP: &str = "System";
 
@@ -15,7 +14,7 @@ const G_LOAD: &str = "System Load";
 const G_INFO: &str = "System Info";
 const G_CPUS: &str = "CPUs";
 
-pub fn run() -> Result<(), Error> {
+pub async fn run() -> Result<(), Error> {
     let mut system = System::new_all();
 
     let cpu_board = BoardListTracer::new([APP, D_SYS, G_INFO, "CPU Info"].into());
@@ -85,6 +84,6 @@ pub fn run() -> Result<(), Error> {
         }
 
         info_board.set("Uptime", format!("{} secs", system.uptime()));
-        thread::sleep(Duration::from_millis(700));
+        sleep(Duration::from_millis(1_000)).await;
     }
 }
