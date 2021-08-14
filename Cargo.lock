@@ -19,9 +19,9 @@ dependencies = [
 
 [[package]]
 name = "anyhow"
-version = "1.0.42"
+version = "1.0.43"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "595d3cfa7a60d4555cb5067b99f07142a08ea778de5cf993f7b75c7d8fabc486"
+checksum = "28ae2b3dec75a406790005a200b1bd89785afc02517a00ca99ecfe093ee9e6cf"
 
 [[package]]
 name = "async-trait"
@@ -780,9 +780,9 @@ checksum = "7ffc5c5338469d4d3ea17d269fa8ea3512ad247247c30bd2df69e68309ed0a08"
 
 [[package]]
 name = "meio"
-version = "0.93.2"
+version = "0.93.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c9c1beb1fe892adbb265f21a30048b7d405591f0b022bd309e3d7794380ec147"
+checksum = "b0959dfa58497155327c087dee55bf971f2bd59795fd17bf7c000d4e92421cf8"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -797,9 +797,9 @@ dependencies = [
 
 [[package]]
 name = "meio-connect"
-version = "0.93.2"
+version = "0.93.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ab88ef107ea22e04a44705136b0010e1b3c2fb96762ed9cd5b76e182838fd049"
+checksum = "a8f942417e4ab19a2b8ab5d2a3694616bf2e1cc72f221cc9635480bc7c14f2b0"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -821,9 +821,9 @@ dependencies = [
 
 [[package]]
 name = "meio-protocol"
-version = "0.93.2"
+version = "0.93.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3852f857db23c355bbacc0f97a589ec305fcbf7273b8efa171b6ed5b9b686156"
+checksum = "d1e5ae89702144e348725abe0ef6122e89d87079024af98486a1418ccdf14332"
 dependencies = [
  "anyhow",
  "serde",
@@ -1268,9 +1268,9 @@ dependencies = [
 
 [[package]]
 name = "rate-core"
-version = "0.36.0"
+version = "0.37.0-rc.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f30649679258a6aff2c6921330ab718a49809e60a0c79107f260ee9438b3f58a"
+checksum = "62bad7c1a4a3d0cbbf54de058d8aff403b86cd803a4b46033ad99ab110ee8a80"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1391,9 +1391,9 @@ dependencies = [
 
 [[package]]
 name = "rill-engine"
-version = "0.36.0"
+version = "0.37.0-rc.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "587cb844d9fa62c5d17d2f4b2bb94c8f5ae6180f6cf579ccfa0a2e4688852b27"
+checksum = "de985510e10a71562a24756ec18525b02b2ca3cd92ecf18854cef3ee0764cdda"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1414,9 +1414,9 @@ dependencies = [
 
 [[package]]
 name = "rill-protocol"
-version = "0.36.0"
+version = "0.37.0-rc.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "9fd183a7dc7ff8518c964d7829d5bb91c1b462dfa3e9fa1bf79031c3f100dc74"
+checksum = "14c486e5eda2021dc70acd2acd819248e21c59932619f62a567a5d6357188ea1"
 dependencies = [
  "anyhow",
  "derive_more",
@@ -1433,9 +1433,9 @@ dependencies = [
 
 [[package]]
 name = "rillrate"
-version = "0.36.0"
+version = "0.37.0-rc.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "df2c7179eb46b6bd2f44987cd7388506fc80572ab683fec64b7c8c2652447c6b"
+checksum = "1191cbff711436f9275c199f31b5408c435e51ee3b3cc8263edf1d6e298c116f"
 dependencies = [
  "anyhow",
  "async-trait",
@@ -1444,9 +1444,10 @@ dependencies = [
  "meio",
  "meio-connect",
  "metacrate",
+ "once_cell",
  "rate-core",
  "rill-protocol",
- "rillrate-protocol",
+ "rrpack-prime",
  "serde",
  "strum",
  "thiserror",
@@ -1454,14 +1455,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "rillrate-protocol"
-version = "0.36.0"
+name = "rrpack-prime"
+version = "0.37.0-rc.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a5de13221f669bc7d5f38d3916375266c92983f1488672dd7896283b1a24d22a"
+checksum = "4341d078185206bcc33e2fef5b46ddec989b9d9c9f171b3a119f5715a9985852"
 dependencies = [
  "derive_more",
  "log",
  "once_cell",
+ "ordered-float",
  "rill-engine",
  "rill-protocol",
  "serde",
@@ -1720,9 +1722,9 @@ dependencies = [
 
 [[package]]
 name = "tar"
-version = "0.4.35"
+version = "0.4.37"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7d779dc6aeff029314570f666ec83f19df7280bb36ef338442cfa8c604021b80"
+checksum = "d6f5515d3add52e0bbdcad7b83c388bb36ba7b754dda3b5f5bc2d38640cdba5c"
 dependencies = [
  "filetime",
  "libc",
@@ -1808,9 +1810,9 @@ checksum = "cda74da7e1a664f795bb1f8a87ec406fb89a02522cf6e50620d016add6dbbf5c"
 
 [[package]]
 name = "tokio"
-version = "1.9.0"
+version = "1.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4b7b349f11a7047e6d1276853e612d152f5e8a352c61917887cc2169e2366b4c"
+checksum = "01cf844b23c6131f624accf65ce0e4e9956a8bb329400ea5bcc26ae3a5c20b0b"
 dependencies = [
  "autocfg",
  "bytes 1.0.1",

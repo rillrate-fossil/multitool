@@ -1,7 +1,8 @@
 use anyhow::Error;
 use futures::StreamExt;
-use rillrate::board::BoardListTracer;
-use rillrate::pulse::{Label, PulseFrameSpec, PulseFrameTracer, Range};
+use rillrate::board::Board;
+use rillrate::pulse::{Pulse, PulseSpec};
+use rillrate::range::{Label, Range};
 use shiplift::{ContainerListOptions, Docker};
 use std::collections::HashMap;
 use tokio::time::{sleep, Duration};
@@ -22,8 +23,8 @@ fn y_n(yes: bool) -> &'static str {
 }
 
 pub async fn run() -> Result<(), Error> {
-    let info_board = BoardListTracer::new([APP, D_INFO, G_INFO, "Global Info"].into());
-    let resr_board = BoardListTracer::new([APP, D_INFO, G_INFO, "Resources"].into());
+    let info_board = Board::new([APP, D_INFO, G_INFO, "Global Info"]);
+    let resr_board = Board::new([APP, D_INFO, G_INFO, "Resources"]);
     let docker = Docker::new();
     match docker.info().await {
         Ok(info) => {
@@ -46,9 +47,9 @@ pub async fn run() -> Result<(), Error> {
         }
     }
     struct Group {
-        board: BoardListTracer,
-        memory: PulseFrameTracer,
-        cpu: PulseFrameTracer,
+        board: Board,
+        memory: Pulse,
+        cpu: Pulse,
     }
     let mut groups_pool: HashMap<String, Group> = HashMap::new();
     loop {
@@ -64,23 +65,22 @@ pub async fn run() -> Result<(), Error> {
                 g = group;
             } else {
                 // Creates a new tracer for a new container
-                let memory_spec = Some(PulseFrameSpec {
+                let memory_spec = Some(PulseSpec {
                     retain: 30,
-                    range: Range::new(0.0, 10_000_000 as f32),
+                    range: Range::new(0.0, 10_000_000.0),
                     // TODO: Check is that correct? Or 1024x?
                     label: Label::new("Gb", 1_000_000.0),
                 });
-                let memory =
-                    PulseFrameTracer::new([APP, D_STAT, name, "Memory"].into(), memory_spec);
+                let memory = Pulse::new([APP, D_STAT, name, "Memory"], memory_spec);
 
-                let cpu_spec = Some(PulseFrameSpec {
+                let cpu_spec = Some(PulseSpec {
                     retain: 30,
                     range: Range::new(0.0, 100.0),
                     label: Label::pct_100(),
                 });
-                let cpu = PulseFrameTracer::new([APP, D_STAT, name, "CPU"].into(), cpu_spec);
+                let cpu = Pulse::new([APP, D_STAT, name, "CPU"], cpu_spec);
 
-                let board = BoardListTracer::new([APP, D_STAT, name, "Info"].into());
+                let board = Board::new([APP, D_STAT, name, "Info"]);
                 g = Group { board, memory, cpu };
             }
             g.board.set("Image", cont.image);
@@ -93,7 +93,7 @@ pub async fn run() -> Result<(), Error> {
             log::warn!("STATS of {}: {:?}", name, opt_stats);
             if let Some(Ok(stats)) = opt_stats {
                 log::warn!("Usage: {}", stats.memory_stats.usage);
-                g.memory.add(stats.memory_stats.usage as f32);
+                g.memory.add(stats.memory_stats.usage as f64);
             }
 
             // TODO: Add ports forwards
