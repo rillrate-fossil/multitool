@@ -9,7 +9,7 @@ readme = "README.md"
 
 [dependencies]
 anyhow = "1.0.43"
-clap = "3.0.0-beta.2"
+clap = "3.0.0-beta.4"
 env_logger = "0.9.0"
 futures = "0.3.16"
 log = "0.4.14"
