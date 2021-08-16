@@ -40,24 +40,24 @@ pub async fn run() -> Result<(), Error> {
     info_board.set("Total Memory", system.total_memory());
     info_board.set("Total Swap", system.total_swap());
 
-    let cpu_spec = Some(PulseSpec {
+    let cpu_spec = PulseSpec {
         retain: 30,
         range: Range::new(0.0, 100.0),
         label: Label::pct_100(),
-    });
+    };
 
-    let memory_spec = Some(PulseSpec {
+    let memory_spec = PulseSpec {
         retain: 30,
         range: Range::new(0.0, system.total_memory() as f64),
         // TODO: Check is that correct? Or 1024x?
         label: Label::new("Gb", 1_000_000.0),
-    });
+    };
 
-    let swap_spec = Some(PulseSpec {
+    let swap_spec = PulseSpec {
         retain: 30,
         range: Range::new(0.0, system.total_swap() as f64),
         label: Label::new("Gb", 1_000_000.0),
-    });
+    };
 
     let cpu_total = Pulse::new([APP, D_SYS, G_LOAD, "CPU [total]"], cpu_spec.clone());
     let memory_total = Pulse::new([APP, D_SYS, G_LOAD, "Memory [total]"], memory_spec);
@@ -66,9 +66,9 @@ pub async fn run() -> Result<(), Error> {
     let mut cpu_tracers = HashMap::new();
     loop {
         system.refresh_all();
-        cpu_total.add(system.global_processor_info().cpu_usage().into());
-        memory_total.add(system.used_memory() as f64);
-        swap_total.add(system.used_swap() as f64);
+        cpu_total.push(system.global_processor_info().cpu_usage().into());
+        memory_total.push(system.used_memory() as f64);
+        swap_total.push(system.used_swap() as f64);
 
         for (id, proc) in system.processors().iter().enumerate() {
             let cpu_id = id + 1;
@@ -76,7 +76,7 @@ pub async fn run() -> Result<(), Error> {
                 let name = format!("CPU-{:02}", cpu_id);
                 Pulse::new([APP, D_CPU, G_CPUS, &name], cpu_spec.clone())
             });
-            tracer.add(proc.cpu_usage().into());
+            tracer.push(proc.cpu_usage().into());
         }
 
         info_board.set("Uptime", format!("{} secs", system.uptime()));

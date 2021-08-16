@@ -65,19 +65,19 @@ pub async fn run() -> Result<(), Error> {
                 g = group;
             } else {
                 // Creates a new tracer for a new container
-                let memory_spec = Some(PulseSpec {
+                let memory_spec = PulseSpec {
                     retain: 30,
                     range: Range::new(0.0, 10_000_000.0),
                     // TODO: Check is that correct? Or 1024x?
                     label: Label::new("Gb", 1_000_000.0),
-                });
+                };
                 let memory = Pulse::new([APP, D_STAT, name, "Memory"], memory_spec);
 
-                let cpu_spec = Some(PulseSpec {
+                let cpu_spec = PulseSpec {
                     retain: 30,
                     range: Range::new(0.0, 100.0),
                     label: Label::pct_100(),
-                });
+                };
                 let cpu = Pulse::new([APP, D_STAT, name, "CPU"], cpu_spec);
 
                 let board = Board::new([APP, D_STAT, name, "Info"]);
@@ -93,7 +93,7 @@ pub async fn run() -> Result<(), Error> {
             log::warn!("STATS of {}: {:?}", name, opt_stats);
             if let Some(Ok(stats)) = opt_stats {
                 log::warn!("Usage: {}", stats.memory_stats.usage);
-                g.memory.add(stats.memory_stats.usage as f64);
+                g.memory.push(stats.memory_stats.usage as f64);
             }
 
             // TODO: Add ports forwards

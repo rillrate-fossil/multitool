@@ -9,7 +9,7 @@ use opts::{Opts, SubCommand};
 async fn main() -> Result<(), Error> {
     let opts = Opts::parse();
     env_logger::try_init()?;
-    let _handle = rillrate::start();
+    rillrate::install("app")?;
     match opts.subcmd {
         SubCommand::System => apps::system::run().await,
         SubCommand::Docker => apps::docker::run().await,
