@@ -46,7 +46,11 @@ pub async fn run() -> Result<(), Error> {
     info_board.set("Total Memory", system.total_memory());
     info_board.set("Total Swap", system.total_swap());
 
-    let cpu_opts = PulseOpts::default().retain(30u32).pct_100();
+    let cpu_opts = PulseOpts::default()
+        .retain(30u32)
+        .suffix('%')
+        .min(0)
+        .max(100);
     let memory_opts = PulseOpts::default()
         .retain(30u32)
         .min(0)

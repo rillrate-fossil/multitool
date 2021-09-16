@@ -84,7 +84,11 @@ pub async fn run() -> Result<(), Error> {
                     memory_opts,
                 );
 
-                let cpu_opts = PulseOpts::default().retain(30u32).min(0).max(100).pct_100();
+                let cpu_opts = PulseOpts::default()
+                    .retain(30u32)
+                    .min(0)
+                    .max(100)
+                    .suffix('%');
                 let cpu = Pulse::new([APP, D_STAT, name, "CPU"], Default::default(), cpu_opts);
 
                 let board = Board::new(
