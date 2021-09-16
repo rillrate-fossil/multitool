@@ -1,8 +1,6 @@
 use anyhow::Error;
 use futures::StreamExt;
-use rillrate::board::Board;
-use rillrate::pulse::{Pulse, PulseSpec};
-use rillrate::range::{Label, Range};
+use rillrate::prime::*;
 use shiplift::{ContainerListOptions, Docker};
 use std::collections::HashMap;
 use tokio::time::{sleep, Duration};
@@ -23,8 +21,16 @@ fn y_n(yes: bool) -> &'static str {
 }
 
 pub async fn run() -> Result<(), Error> {
-    let info_board = Board::new([APP, D_INFO, G_INFO, "Global Info"]);
-    let resr_board = Board::new([APP, D_INFO, G_INFO, "Resources"]);
+    let info_board = Board::new(
+        [APP, D_INFO, G_INFO, "Global Info"],
+        Default::default(),
+        BoardOpts::default(),
+    );
+    let resr_board = Board::new(
+        [APP, D_INFO, G_INFO, "Resources"],
+        Default::default(),
+        BoardOpts::default(),
+    );
     let docker = Docker::new();
     match docker.info().await {
         Ok(info) => {
@@ -65,22 +71,27 @@ pub async fn run() -> Result<(), Error> {
                 g = group;
             } else {
                 // Creates a new tracer for a new container
-                let memory_spec = PulseSpec {
-                    retain: 30,
-                    range: Range::new(0.0, 10_000_000.0),
-                    // TODO: Check is that correct? Or 1024x?
-                    label: Label::new("Gb", 1_000_000.0),
-                };
-                let memory = Pulse::new([APP, D_STAT, name, "Memory"], memory_spec);
+                let memory_opts = PulseOpts::default()
+                    .retain(30u32)
+                    .min(0)
+                    .max(10_000_000)
+                    .higher(true)
+                    .suffix("Gb")
+                    .divisor(1_000_000);
+                let memory = Pulse::new(
+                    [APP, D_STAT, name, "Memory"],
+                    Default::default(),
+                    memory_opts,
+                );
 
-                let cpu_spec = PulseSpec {
-                    retain: 30,
-                    range: Range::new(0.0, 100.0),
-                    label: Label::pct_100(),
-                };
-                let cpu = Pulse::new([APP, D_STAT, name, "CPU"], cpu_spec);
+                let cpu_opts = PulseOpts::default().retain(30u32).min(0).max(100).pct_100();
+                let cpu = Pulse::new([APP, D_STAT, name, "CPU"], Default::default(), cpu_opts);
 
-                let board = Board::new([APP, D_STAT, name, "Info"]);
+                let board = Board::new(
+                    [APP, D_STAT, name, "Info"],
+                    Default::default(),
+                    BoardOpts::default(),
+                );
                 g = Group { board, memory, cpu };
             }
             g.board.set("Image", cont.image);
