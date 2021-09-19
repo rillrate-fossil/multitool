@@ -8,6 +8,12 @@ pub struct Opts {
 
 #[derive(Clap)]
 pub enum SubCommand {
-    System,
     Docker,
+    Monitor(MonitorOpts),
+    System,
+}
+
+#[derive(Clap)]
+pub struct MonitorOpts {
+    pub url: String,
 }

@@ -11,7 +11,8 @@ async fn main() -> Result<(), Error> {
     env_logger::try_init()?;
     rillrate::install("app")?;
     match opts.subcmd {
-        SubCommand::System => apps::system::run().await,
         SubCommand::Docker => apps::docker::run().await,
+        SubCommand::Monitor(opts) => apps::monitor::run(opts).await,
+        SubCommand::System => apps::system::run().await,
     }
 }

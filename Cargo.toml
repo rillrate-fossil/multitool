@@ -13,6 +13,7 @@ clap = "3.0.0-beta.4"
 env_logger = "0.9.0"
 futures = "0.3.17"
 log = "0.4.14"
+reqwest = "0.11.4"
 rillrate = "0.40.0"
 shiplift = { git = "https://github.com/softprops/shiplift", optional = true }
 sysinfo = { version = "0.20.3", optional = true }
