@@ -20,10 +20,6 @@ futures = "0.3.17"
 log = "0.4.14"
 reqwest = "0.11.4"
 rillrate = "0.40.0"
-shiplift = { git = "https://github.com/softprops/shiplift", optional = true }
 tokio = "1.11.0"
+mtl-docker = { version = "0.40.0", path = "../tools/docker" }
 mtl-system = { version = "0.40.0", path = "../tools/system" }
-
-[features]
-default = ["docker-app"]
-docker-app = ["shiplift"]
