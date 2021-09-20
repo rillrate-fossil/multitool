@@ -21,11 +21,20 @@ pub async fn run(opts: Opts) -> Result<(), Error> {
         Default::default(),
         latency_opts,
     );
+
+    let live_tail_opts = LiveTailOpts::default();
+    let live_tail = LiveTail::new(
+        "lab.monitor.latency.events",
+        Default::default(),
+        live_tail_opts,
+    );
+
     loop {
         let started = Instant::now();
         let body = reqwest::get(&opts.url).await?.text().await?;
         let elapsed = started.elapsed().as_millis();
         latency.push(elapsed as f64);
+        live_tail.log_now("fetch", "", format!("{}ms", elapsed));
         sleep(Duration::from_secs(10)).await;
     }
     Ok(())
