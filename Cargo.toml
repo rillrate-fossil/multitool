@@ -1,25 +1,4 @@
-[package]
-name = "multitool"
-version = "0.40.0"
-edition = "2018"
-description = "System Tools with real-time Web UI"
-repository = "https://github.com/rillrate/multitool"
-license = "Apache-2.0"
-readme = "README.md"
-
-[dependencies]
-anyhow = "1.0.44"
-clap = "3.0.0-beta.4"
-env_logger = "0.9.0"
-futures = "0.3.17"
-log = "0.4.14"
-reqwest = "0.11.4"
-rillrate = "0.40.0"
-shiplift = { git = "https://github.com/softprops/shiplift", optional = true }
-sysinfo = { version = "0.20.3", optional = true }
-tokio = "1.11.0"
-
-[features]
-default = ["system-app", "docker-app"]
-system-app = ["sysinfo"]
-docker-app = ["shiplift"]
+[workspace]
+members = [
+    "lab",
+]
