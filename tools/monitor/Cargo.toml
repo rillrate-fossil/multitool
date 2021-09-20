@@ -1,0 +1,11 @@
+[package]
+name = "mtl-monitor"
+version = "0.40.0"
+edition = "2018"
+
+[dependencies]
+anyhow = "1.0.44"
+clap = "3.0.0-beta.4"
+reqwest = "0.11.4"
+rillrate = "0.40.0"
+tokio = "1.11.0"

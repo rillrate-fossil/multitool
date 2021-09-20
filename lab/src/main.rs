@@ -1,4 +1,3 @@
-mod apps;
 mod opts;
 
 use anyhow::Error;
@@ -12,7 +11,7 @@ async fn main() -> Result<(), Error> {
     rillrate::install("app")?;
     match opts.subcmd {
         SubCommand::Docker => mtl_docker::run().await,
-        SubCommand::Monitor(opts) => apps::monitor::run(opts).await,
+        SubCommand::Monitor(opts) => mtl_monitor::run(opts).await,
         SubCommand::System => mtl_system::run().await,
     }
 }

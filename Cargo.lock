@@ -983,6 +983,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "mtl-monitor"
+version = "0.40.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "reqwest",
+ "rillrate",
+ "tokio",
+]
+
+[[package]]
 name = "mtl-system"
 version = "0.40.0"
 dependencies = [
@@ -1000,10 +1011,9 @@ dependencies = [
  "clap",
  "env_logger",
  "futures",
- "log",
  "mtl-docker",
+ "mtl-monitor",
  "mtl-system",
- "reqwest",
  "rillrate",
  "tokio",
 ]

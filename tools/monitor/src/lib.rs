@@ -1,9 +1,14 @@
-use crate::opts::MonitorOpts;
 use anyhow::Error;
+use clap::Clap;
 use rillrate::prime::*;
 use tokio::time::{sleep, Duration, Instant};
 
-pub async fn run(opts: MonitorOpts) -> Result<(), Error> {
+#[derive(Clap)]
+pub struct Opts {
+    pub url: String,
+}
+
+pub async fn run(opts: Opts) -> Result<(), Error> {
     // TODO: Add many workers?
     let latency_opts = PulseOpts::default()
         .retain(30u32)
