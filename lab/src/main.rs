@@ -13,6 +13,6 @@ async fn main() -> Result<(), Error> {
     match opts.subcmd {
         SubCommand::Docker => apps::docker::run().await,
         SubCommand::Monitor(opts) => apps::monitor::run(opts).await,
-        SubCommand::System => apps::system::run().await,
+        SubCommand::System => mtl_system::run().await,
     }
 }

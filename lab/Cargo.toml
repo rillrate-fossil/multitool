@@ -1,11 +1,16 @@
 [package]
 name = "multitool"
 version = "0.40.0"
+authors = ["Denis Kolodin <deniskolodin@gmail.com>"]
 edition = "2018"
-description = "System Tools with real-time Web UI"
+description = "Multitool for RillRate"
 repository = "https://github.com/rillrate/multitool"
+homepage = "https://github.com/rillrate/multitool"
+documentation = "https://docs.rs/multitool/"
 license = "Apache-2.0"
 readme = "README.md"
+keywords = ["logging"]
+categories = ["development-tools::debugging"]
 
 [dependencies]
 anyhow = "1.0.44"
@@ -16,10 +21,9 @@ log = "0.4.14"
 reqwest = "0.11.4"
 rillrate = "0.40.0"
 shiplift = { git = "https://github.com/softprops/shiplift", optional = true }
-sysinfo = { version = "0.20.3", optional = true }
 tokio = "1.11.0"
+mtl-system = { version = "0.40.0", path = "../tools/system" }
 
 [features]
-default = ["system-app", "docker-app"]
-system-app = ["sysinfo"]
+default = ["docker-app"]
 docker-app = ["shiplift"]

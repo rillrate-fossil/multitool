@@ -971,6 +971,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "mtl-system"
+version = "0.40.0"
+dependencies = [
+ "anyhow",
+ "rillrate",
+ "sysinfo",
+ "tokio",
+]
+
+[[package]]
 name = "multitool"
 version = "0.40.0"
 dependencies = [
@@ -979,10 +989,10 @@ dependencies = [
  "env_logger",
  "futures",
  "log",
+ "mtl-system",
  "reqwest",
  "rillrate",
  "shiplift",
- "sysinfo",
  "tokio",
 ]
 

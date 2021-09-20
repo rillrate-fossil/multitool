@@ -1,0 +1,10 @@
+[package]
+name = "mtl-system"
+version = "0.40.0"
+edition = "2018"
+
+[dependencies]
+anyhow = "1.0.44"
+rillrate = "0.40.0"
+sysinfo = { version = "0.20.3" }
+tokio = "1.11.0"
