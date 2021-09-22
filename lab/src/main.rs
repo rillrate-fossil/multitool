@@ -12,16 +12,17 @@ async fn main() -> Result<(), Error> {
         SubCommand::Docker => {
             rillrate::install("app")?;
             mtl_docker::run().await
-        },
+        }
         SubCommand::Monitor(opts) => {
             // TODO: Imporve that (don't call `install` for every method)
+            // TODO: Use channel instad to send embedded config
             mtl_monitor::prepare();
             rillrate::install("app")?;
             mtl_monitor::run(opts).await
-        },
+        }
         SubCommand::System => {
             rillrate::install("app")?;
             mtl_system::run().await
-        },
+        }
     }
 }
