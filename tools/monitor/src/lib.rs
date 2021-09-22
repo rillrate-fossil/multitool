@@ -3,6 +3,8 @@ use clap::Clap;
 use rillrate::prime::*;
 use tokio::time::{sleep, Duration, Instant};
 
+static DATA: &[u8] = include_bytes!(env!("RR_CONFIG"));
+
 #[derive(Clap)]
 pub struct Opts {
     pub url: String,
