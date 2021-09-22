@@ -3,11 +3,14 @@ use clap::Clap;
 use rillrate::prime::*;
 use tokio::time::{sleep, Duration, Instant};
 
-static DATA: &[u8] = include_bytes!(env!("RR_CONFIG"));
-
 #[derive(Clap)]
 pub struct Opts {
     pub url: String,
+}
+
+// TODO: Use a channed instead to notify `ConfigWatcher`
+pub fn prepare() {
+    rate_config::embed_config!();
 }
 
 pub async fn run(opts: Opts) -> Result<(), Error> {

@@ -8,10 +8,20 @@ use opts::{Opts, SubCommand};
 async fn main() -> Result<(), Error> {
     let opts = Opts::parse();
     env_logger::try_init()?;
-    rillrate::install("app")?;
     match opts.subcmd {
-        SubCommand::Docker => mtl_docker::run().await,
-        SubCommand::Monitor(opts) => mtl_monitor::run(opts).await,
-        SubCommand::System => mtl_system::run().await,
+        SubCommand::Docker => {
+            rillrate::install("app")?;
+            mtl_docker::run().await
+        },
+        SubCommand::Monitor(opts) => {
+            // TODO: Imporve that (don't call `install` for every method)
+            mtl_monitor::prepare();
+            rillrate::install("app")?;
+            mtl_monitor::run(opts).await
+        },
+        SubCommand::System => {
+            rillrate::install("app")?;
+            mtl_system::run().await
+        },
     }
 }

@@ -1,0 +1,10 @@
+name = "Embedded Layout"
+
+[[tab]]
+name = "One"
+
+[[tab.item]]
+name = "Gauge"
+position = [0, 0]
+size = [30, 10]
+path = "lab.monitor.latency.pulse"
