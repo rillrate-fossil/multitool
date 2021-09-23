@@ -1,3 +1,5 @@
+mod actors;
+
 use anyhow::Error;
 use clap::Clap;
 use rillrate::prime::*;

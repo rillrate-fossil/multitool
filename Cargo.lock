@@ -988,6 +988,7 @@ version = "0.40.0"
 dependencies = [
  "anyhow",
  "clap",
+ "meio",
  "rate-config",
  "reqwest",
  "rillrate",
