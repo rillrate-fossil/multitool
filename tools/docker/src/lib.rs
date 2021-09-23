@@ -55,7 +55,6 @@ pub async fn run() -> Result<(), Error> {
     struct Group {
         board: Board,
         memory: Pulse,
-        cpu: Pulse,
     }
     let mut groups_pool: HashMap<String, Group> = HashMap::new();
     loop {
@@ -84,19 +83,21 @@ pub async fn run() -> Result<(), Error> {
                     memory_opts,
                 );
 
+                /*
                 let cpu_opts = PulseOpts::default()
                     .retain(30u32)
                     .min(0)
                     .max(100)
                     .suffix('%');
                 let cpu = Pulse::new([APP, D_STAT, name, "CPU"], Default::default(), cpu_opts);
+                */
 
                 let board = Board::new(
                     [APP, D_STAT, name, "Info"],
                     Default::default(),
                     BoardOpts::default(),
                 );
-                g = Group { board, memory, cpu };
+                g = Group { board, memory };
             }
             g.board.set("Image", cont.image);
             g.board.set("Command", cont.command);

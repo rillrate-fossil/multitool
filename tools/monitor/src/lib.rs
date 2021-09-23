@@ -8,11 +8,6 @@ pub struct Opts {
     pub url: String,
 }
 
-// TODO: Use a channed instead to notify `ConfigWatcher`
-pub fn prepare() {
-    rate_config::embed_config!();
-}
-
 pub async fn run(opts: Opts) -> Result<(), Error> {
     // TODO: Add many workers?
     let latency_opts = PulseOpts::default()
@@ -36,11 +31,10 @@ pub async fn run(opts: Opts) -> Result<(), Error> {
 
     loop {
         let started = Instant::now();
-        let body = reqwest::get(&opts.url).await?.text().await?;
+        let _body = reqwest::get(&opts.url).await?.text().await?;
         let elapsed = started.elapsed().as_millis();
         latency.push(elapsed as f64);
         live_tail.log_now("fetch", "", format!("{}ms", elapsed));
         sleep(Duration::from_secs(10)).await;
     }
-    Ok(())
 }
