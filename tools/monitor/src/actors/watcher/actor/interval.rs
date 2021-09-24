@@ -28,6 +28,7 @@ impl Watcher {
 impl ActionHandler<ChangeInterval> for Watcher {
     async fn handle(&mut self, msg: ChangeInterval, _ctx: &mut Context<Self>) -> Result<(), Error> {
         // TODO: Reschedule site checker
+        log::info!("Interval changed: {}", msg.0);
         self.interval.apply(msg.0 as f64);
         Ok(())
     }

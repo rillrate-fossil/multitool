@@ -989,6 +989,7 @@ dependencies = [
  "anyhow",
  "async-trait",
  "clap",
+ "log",
  "meio",
  "rate-config",
  "reqwest",
