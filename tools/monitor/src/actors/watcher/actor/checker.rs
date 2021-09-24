@@ -6,7 +6,7 @@ use std::sync::Arc;
 use tokio::time::Instant;
 
 impl Watcher {
-    fn check(&mut self, ctx: &mut Context<Self>) {
+    pub fn check(&mut self, ctx: &mut Context<Self>) {
         let checker = Checker {
             url: self.url.clone(),
         };

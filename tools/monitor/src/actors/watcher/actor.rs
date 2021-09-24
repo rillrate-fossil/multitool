@@ -1,9 +1,10 @@
 mod checker;
+mod heartbeat;
 mod interval;
 
 use anyhow::Error;
 use async_trait::async_trait;
-use meio::{Actor, Context, StartedBy, System};
+use meio::{Actor, Context, InterruptedBy, StartedBy, System};
 use rillrate::prime::*;
 use std::sync::Arc;
 
@@ -55,7 +56,16 @@ impl Watcher {
 #[async_trait]
 impl StartedBy<System> for Watcher {
     async fn handle(&mut self, ctx: &mut Context<Self>) -> Result<(), Error> {
+        self.spawn_heartbeat(ctx);
         self.set_interval_callback(ctx);
+        Ok(())
+    }
+}
+
+#[async_trait]
+impl InterruptedBy<System> for Watcher {
+    async fn handle(&mut self, ctx: &mut Context<Self>) -> Result<(), Error> {
+        ctx.shutdown();
         Ok(())
     }
 }
