@@ -987,6 +987,7 @@ name = "mtl-monitor"
 version = "0.40.0"
 dependencies = [
  "anyhow",
+ "async-trait",
  "clap",
  "meio",
  "rate-config",
