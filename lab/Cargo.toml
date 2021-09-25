@@ -18,7 +18,7 @@ clap = "3.0.0-beta.4"
 env_logger = "0.9.0"
 futures = "0.3.17"
 rillrate = "0.40.0"
-tokio = "1.11.0"
+tokio = "1.12.0"
 mtl-docker = { version = "0.40.0", path = "../tools/docker" }
 mtl-monitor = { version = "0.40.0", path = "../tools/monitor" }
 mtl-system = { version = "0.40.0", path = "../tools/system" }

@@ -3,12 +3,10 @@ use anyhow::Error;
 use async_trait::async_trait;
 use meio::task::{HeartBeat, OnTick, Tick};
 use meio::Context;
-use std::time::Duration;
 
 impl Watcher {
     pub fn spawn_heartbeat(&mut self, ctx: &mut Context<Self>) {
-        self.interval.apply(10);
-        let heartbeat = HeartBeat::new(Duration::from_secs(10), ctx.address().clone());
+        let heartbeat = HeartBeat::new_with_handle(&self.handle, ctx.address().clone());
         ctx.spawn_task(heartbeat, (), ());
     }
 }

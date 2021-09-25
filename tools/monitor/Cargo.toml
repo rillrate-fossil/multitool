@@ -8,11 +8,11 @@ anyhow = "1.0.44"
 async-trait = "0.1.51"
 clap = "3.0.0-beta.4"
 log = "0.4.14"
-meio = "0.94.0"
+meio = "0.95.1"
 rate-config = "0.40.0"
 reqwest = "0.11.4"
 rillrate = "0.40.0"
-tokio = "1.11.0"
+tokio = "1.12.0"
 
 [build-dependencies]
 rate-config = "0.40.0"
