@@ -8,7 +8,7 @@ use std::time::Duration;
 
 impl Watcher {
     pub fn set_interval_callback(&mut self, ctx: &mut Context<Self>) {
-        self.interval.forward(ctx.address().clone());
+        self.interval.forward((), ctx);
     }
 }
 
