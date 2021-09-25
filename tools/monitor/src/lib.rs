@@ -10,7 +10,7 @@ pub struct Opts {
 }
 
 pub async fn run(opts: Opts) -> Result<(), Error> {
-    let watcher = actors::watcher::Watcher::new(opts.url);
+    let watcher = actors::supervisor::Supervisor::new();
     System::spawn_and_wait(watcher).await;
     Ok(())
 }

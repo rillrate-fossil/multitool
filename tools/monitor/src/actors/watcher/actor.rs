@@ -2,10 +2,11 @@ mod checker;
 mod heartbeat;
 mod interval;
 
+use crate::actors::supervisor::Supervisor;
 use anyhow::Error;
 use async_trait::async_trait;
 use meio::task::HeartBeatHandle;
-use meio::{Actor, Context, InterruptedBy, StartedBy, System};
+use meio::{Actor, Context, InterruptedBy, StartedBy};
 use rillrate::prime::*;
 use std::sync::Arc;
 use std::time::Duration;
@@ -23,9 +24,9 @@ impl Actor for Watcher {
 }
 
 impl Watcher {
-    pub fn new(url: String) -> Self {
+    pub fn new(name: String, url: String) -> Self {
         let latency = Pulse::new(
-            "lab.monitor.latency.pulse",
+            format!("site.{}.latency.pulse", name),
             Default::default(),
             PulseOpts::default()
                 .retain(30u32)
@@ -35,12 +36,12 @@ impl Watcher {
                 .suffix("ms"),
         );
         let tail = LiveTail::new(
-            "lab.monitor.latency.events",
+            format!("site.{}.latency.events", name),
             Default::default(),
             LiveTailOpts::default(),
         );
         let interval = Slider::new(
-            "lab.monitor.settings.interval",
+            format!("site.{}.settings.interval", name),
             SliderOpts::default()
                 .label("Slide Me!")
                 .min(1)
@@ -61,7 +62,7 @@ impl Watcher {
 }
 
 #[async_trait]
-impl StartedBy<System> for Watcher {
+impl StartedBy<Supervisor> for Watcher {
     async fn handle(&mut self, ctx: &mut Context<Self>) -> Result<(), Error> {
         self.spawn_heartbeat(ctx);
         self.set_interval_callback(ctx);
@@ -70,7 +71,7 @@ impl StartedBy<System> for Watcher {
 }
 
 #[async_trait]
-impl InterruptedBy<System> for Watcher {
+impl InterruptedBy<Supervisor> for Watcher {
     async fn handle(&mut self, ctx: &mut Context<Self>) -> Result<(), Error> {
         ctx.shutdown();
         Ok(())
