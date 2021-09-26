@@ -1005,7 +1005,6 @@ version = "0.40.0"
 dependencies = [
  "anyhow",
  "async-trait",
- "clap",
  "log",
  "meio 0.95.1",
  "rate-config",

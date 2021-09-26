@@ -11,7 +11,7 @@ async fn main() -> Result<(), Error> {
     rillrate::install("app")?;
     match opts.subcmd {
         SubCommand::Docker => mtl_docker::run().await,
-        SubCommand::Monitor(opts) => mtl_monitor::run(opts).await,
+        SubCommand::Monitor => mtl_monitor::run().await,
         SubCommand::System => mtl_system::run().await,
     }
 }

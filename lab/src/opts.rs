@@ -9,6 +9,6 @@ pub struct Opts {
 #[derive(Clap)]
 pub enum SubCommand {
     Docker,
-    Monitor(mtl_monitor::Opts),
+    Monitor,
     System,
 }
