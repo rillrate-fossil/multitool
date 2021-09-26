@@ -1007,7 +1007,6 @@ dependencies = [
  "async-trait",
  "log",
  "meio 0.95.1",
- "once_cell",
  "rate-config",
  "reqwest",
  "rillrate",
