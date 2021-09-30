@@ -3,7 +3,7 @@ use crate::actors::watcher::Watcher;
 use anyhow::Error;
 use async_trait::async_trait;
 use meio::{ActionHandler, Context, Eliminated, IdOf};
-use rillrate::meio_addon::TracerAction;
+use rillrate::meio_addon::{Activity, TracerAction};
 use rillrate::prime::click::ClickState;
 use rillrate::prime::input::InputState;
 
@@ -28,17 +28,30 @@ impl ActionHandler<TracerAction<InputState, InputTag>> for Supervisor {
         msg: TracerAction<InputState, InputTag>,
         _ctx: &mut Context<Self>,
     ) -> Result<(), Error> {
-        if let Some(action) = msg.envelope.action {
-            match msg.tag {
+        match msg.envelope.activity {
+            Activity::Suspend => match msg.tag {
                 InputTag::Name => {
-                    self.name = action.clone();
-                    self.input_name.apply(action);
+                    self.input_name.clear();
                 }
                 InputTag::Url => {
-                    self.url = action.clone();
-                    self.input_url.apply(action);
+                    self.input_url.clear();
+                }
+            },
+            Activity::Action => {
+                if let Some(action) = msg.envelope.action {
+                    match msg.tag {
+                        InputTag::Name => {
+                            self.name = action.clone();
+                            self.input_name.apply(action);
+                        }
+                        InputTag::Url => {
+                            self.url = action.clone();
+                            self.input_url.apply(action);
+                        }
+                    }
                 }
             }
+            _ => {}
         }
         Ok(())
     }
