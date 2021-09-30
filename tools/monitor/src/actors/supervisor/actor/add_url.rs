@@ -31,11 +31,12 @@ impl ActionHandler<TracerAction<InputState, InputTag>> for Supervisor {
         if let Some(action) = msg.envelope.action {
             match msg.tag {
                 InputTag::Name => {
-                    self.name = action;
-                    //self.input_name.update(action);
+                    self.name = action.clone();
+                    self.input_name.apply(action);
                 }
                 InputTag::Url => {
-                    self.url = action;
+                    self.url = action.clone();
+                    self.input_url.apply(action);
                 }
             }
         }

@@ -1,12 +1,15 @@
 use super::*;
-use rillrate::basis::Layout;
+use rillrate::basis::*;
 
 impl Supervisor {
     pub fn register_layout(&mut self) {
         let mut tab = Layout::new(["Global", "Settings"]);
-        tab.add_item((0, 0), (20, 30), INPUT_NAME);
-        tab.add_item((0, 30), (20, 30), INPUT_URL);
-        tab.add_item((0, 60), (20, 30), BUTTON_ADD);
+        tab.set_container(Row::new(vec![Column::new(vec![
+            Flow::new(INPUT_NAME).into(),
+            Flow::new(INPUT_URL).into(),
+            Row::new(vec![Flow::new(BUTTON_ADD).into()]).into(),
+        ])
+        .into()]));
         tab.register();
     }
 

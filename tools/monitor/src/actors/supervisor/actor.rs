@@ -24,8 +24,8 @@ impl Actor for Supervisor {
 
 impl Supervisor {
     pub fn new() -> Self {
-        let input_name = Input::new(INPUT_NAME, InputOpts::default().placeholder("Name"));
-        let input_url = Input::new(INPUT_URL, InputOpts::default().placeholder("URL"));
+        let input_name = Input::new(INPUT_NAME, InputOpts::default().label("Name"));
+        let input_url = Input::new(INPUT_URL, InputOpts::default().label("URL"));
         let button_add = Click::new(BUTTON_ADD, ClickOpts::default().label("Add"));
         Self {
             input_name,
