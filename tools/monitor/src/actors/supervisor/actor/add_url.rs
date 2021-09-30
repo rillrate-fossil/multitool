@@ -19,6 +19,13 @@ impl Supervisor {
         self.input_url.forward(InputTag::Url, ctx);
         self.button_add.forward((), ctx);
     }
+
+    pub fn clear(&mut self) {
+        self.input_name.clear();
+        self.name.clear();
+        self.input_url.clear();
+        self.url.clear();
+    }
 }
 
 #[async_trait]
@@ -29,14 +36,9 @@ impl ActionHandler<TracerAction<InputState, InputTag>> for Supervisor {
         _ctx: &mut Context<Self>,
     ) -> Result<(), Error> {
         match msg.envelope.activity {
-            Activity::Suspend => match msg.tag {
-                InputTag::Name => {
-                    self.input_name.clear();
-                }
-                InputTag::Url => {
-                    self.input_url.clear();
-                }
-            },
+            Activity::Suspend => {
+                self.clear();
+            }
             Activity::Action => {
                 if let Some(action) = msg.envelope.action {
                     match msg.tag {
@@ -67,6 +69,7 @@ impl ActionHandler<TracerAction<ClickState>> for Supervisor {
         if let Some(_action) = msg.envelope.action {
             let watcher = Watcher::new(self.name.clone(), self.url.clone());
             ctx.spawn_actor(watcher, ());
+            self.clear();
         }
         Ok(())
     }
