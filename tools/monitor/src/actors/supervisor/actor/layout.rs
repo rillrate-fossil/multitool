@@ -14,7 +14,7 @@ impl Supervisor {
                 1.0,
             )
             .into(),
-            Expanded::new(Spacer::new(), 3.0).into(),
+            Spacer::new(3.0).into(),
         ]));
         tab.register();
     }
